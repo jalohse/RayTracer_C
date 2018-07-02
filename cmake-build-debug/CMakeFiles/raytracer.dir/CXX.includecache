@@ -13,12 +13,16 @@ fstream
 -
 vec3.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
+ray.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
 
-/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.cpp
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.cpp
+ray.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
+
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
 vec3.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
-iostream
--
 
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
 math.h

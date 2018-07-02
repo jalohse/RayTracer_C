@@ -3,7 +3,9 @@
 
 CMakeFiles/raytracer.dir/main.cpp.o
  /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/main.cpp
+ /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
  /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
-CMakeFiles/raytracer.dir/vec3.cpp.o
- /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.cpp
+CMakeFiles/raytracer.dir/ray.cpp.o
+ /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.cpp
+ /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
  /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h

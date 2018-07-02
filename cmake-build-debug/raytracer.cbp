@@ -85,7 +85,10 @@
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/main.cpp">
 			<Option target="raytracer"/>
 		</Unit>
-		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.cpp">
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.cpp">
+			<Option target="raytracer"/>
+		</Unit>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h">
 			<Option target="raytracer"/>
 		</Unit>
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h">

@@ -150,32 +150,32 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-vec3.o: vec3.cpp.o
+ray.o: ray.cpp.o
 
-.PHONY : vec3.o
+.PHONY : ray.o
 
 # target to build an object file
-vec3.cpp.o:
-	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/vec3.cpp.o
-.PHONY : vec3.cpp.o
+ray.cpp.o:
+	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/ray.cpp.o
+.PHONY : ray.cpp.o
 
-vec3.i: vec3.cpp.i
+ray.i: ray.cpp.i
 
-.PHONY : vec3.i
+.PHONY : ray.i
 
 # target to preprocess a source file
-vec3.cpp.i:
-	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/vec3.cpp.i
-.PHONY : vec3.cpp.i
+ray.cpp.i:
+	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/ray.cpp.i
+.PHONY : ray.cpp.i
 
-vec3.s: vec3.cpp.s
+ray.s: ray.cpp.s
 
-.PHONY : vec3.s
+.PHONY : ray.s
 
 # target to generate assembly for a file
-vec3.cpp.s:
-	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/vec3.cpp.s
-.PHONY : vec3.cpp.s
+ray.cpp.s:
+	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/ray.cpp.s
+.PHONY : ray.cpp.s
 
 # Help Target
 help:
@@ -189,9 +189,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... vec3.o"
-	@echo "... vec3.i"
-	@echo "... vec3.s"
+	@echo "... ray.o"
+	@echo "... ray.i"
+	@echo "... ray.s"
 .PHONY : help
 
 
