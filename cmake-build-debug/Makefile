@@ -150,6 +150,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+vec3.o: vec3.cpp.o
+
+.PHONY : vec3.o
+
+# target to build an object file
+vec3.cpp.o:
+	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/vec3.cpp.o
+.PHONY : vec3.cpp.o
+
+vec3.i: vec3.cpp.i
+
+.PHONY : vec3.i
+
+# target to preprocess a source file
+vec3.cpp.i:
+	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/vec3.cpp.i
+.PHONY : vec3.cpp.i
+
+vec3.s: vec3.cpp.s
+
+.PHONY : vec3.s
+
+# target to generate assembly for a file
+vec3.cpp.s:
+	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/vec3.cpp.s
+.PHONY : vec3.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +189,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... vec3.o"
+	@echo "... vec3.i"
+	@echo "... vec3.s"
 .PHONY : help
 
 

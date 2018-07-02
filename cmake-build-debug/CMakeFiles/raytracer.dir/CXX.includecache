@@ -11,4 +11,20 @@ iostream
 -
 fstream
 -
+vec3.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
+
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.cpp
+vec3.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
+iostream
+-
+
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
+math.h
+-
+stdlib.h
+-
+iostream
+-
 

@@ -85,6 +85,12 @@
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/main.cpp">
 			<Option target="raytracer"/>
 		</Unit>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.cpp">
+			<Option target="raytracer"/>
+		</Unit>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h">
+			<Option target="raytracer"/>
+		</Unit>
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

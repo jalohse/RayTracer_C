@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "vec3.h"
 using namespace std;
 
 int main() {
@@ -10,12 +11,10 @@ int main() {
     file << "P3\n" << nx << " " << ny << "\n255\n";
     for (int j = ny-1; j >= 0 ; j--) {
         for (int i = 0; i < nx; ++i) {
-            float red = float(i) / float(nx);
-            float green = float(j) / float(ny);
-            float blue = 0.2;
-            int ir = int(255.99 * red);
-            int ig = int(255.99 * green);
-            int ib = int(255.99 * blue);
+            vec3 color = vec3(float(i) / float(nx), float(j) / float(ny), 0.2);
+            int ir = int(255.99 * color[0]);
+            int ig = int(255.99 * color[1]);
+            int ib = int(255.99 * color[2]);
             file << ir << " " << ig << " " << ib << "\n";
         }
     }
