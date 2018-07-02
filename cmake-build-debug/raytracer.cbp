@@ -82,6 +82,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable.h">
+			<Option target="raytracer"/>
+		</Unit>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable_list.h">
+			<Option target="raytracer"/>
+		</Unit>
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/main.cpp">
 			<Option target="raytracer"/>
 		</Unit>
@@ -89,6 +95,9 @@
 			<Option target="raytracer"/>
 		</Unit>
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h">
+			<Option target="raytracer"/>
+		</Unit>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/sphere.h">
 			<Option target="raytracer"/>
 		</Unit>
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h">

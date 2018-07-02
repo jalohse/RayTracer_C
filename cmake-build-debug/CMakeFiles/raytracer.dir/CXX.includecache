@@ -6,13 +6,23 @@
 
 #IncludeRegexTransform: 
 
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable.h
+ray.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
+
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable_list.h
+hitable.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable.h
+
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/main.cpp
 iostream
 -
 fstream
 -
-ray.h
-/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
+sphere.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/sphere.h
+hitable_list.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable_list.h
 
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.cpp
 ray.h
@@ -21,6 +31,10 @@ ray.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
 vec3.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
+
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/sphere.h
+hitable.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable.h
 
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
 math.h

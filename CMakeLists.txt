@@ -3,4 +3,4 @@ project(raytracer)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(raytracer main.cpp vec3.h ray.cpp ray.h)
+add_executable(raytracer main.cpp vec3.h ray.cpp ray.h hitable.h sphere.h hitable_list.h)
