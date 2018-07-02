@@ -9,4 +9,6 @@
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/main.cpp
 iostream
 -
+fstream
+-
 
