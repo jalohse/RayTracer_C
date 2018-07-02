@@ -11,8 +11,6 @@ iostream
 -
 fstream
 -
-vec3.h
-/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h
 ray.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
 
