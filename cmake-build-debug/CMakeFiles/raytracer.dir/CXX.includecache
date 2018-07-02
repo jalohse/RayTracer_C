@@ -29,6 +29,12 @@ hitable_list.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable_list.h
 camera.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/camera.h
+material.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/material.h
+
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/material.h
+hitable.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable.h
 
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.cpp
 ray.h

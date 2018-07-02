@@ -3,13 +3,16 @@
 
 #include "hitable.h"
 
+class material;
+
 class sphere: public hitable {
 public:
     sphere();
-    sphere(vec3 center, float radius): center(center), radius(radius) {};
+    sphere(vec3 center, float radius, material *mat): center(center), radius(radius), mat_ptr(mat) {};
     virtual bool hit(const ray& r, float t_min, float t_max, hit_record& rec) const;
     vec3 center;
     float radius;
+    material *mat_ptr;
 };
 
 
@@ -37,5 +40,7 @@ bool sphere::hit(const ray& r, float t_min, float t_max, hit_record& rec) const 
     }
     return false;
 }
+
+
 
 #endif //RAYTRACER_SPHERE_H

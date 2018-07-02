@@ -94,6 +94,9 @@
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/main.cpp">
 			<Option target="raytracer"/>
 		</Unit>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/material.h">
+			<Option target="raytracer"/>
+		</Unit>
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.cpp">
 			<Option target="raytracer"/>
 		</Unit>

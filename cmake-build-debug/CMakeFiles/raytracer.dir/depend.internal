@@ -6,6 +6,7 @@ CMakeFiles/raytracer.dir/main.cpp.o
  /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable.h
  /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable_list.h
  /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/main.cpp
+ /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/material.h
  /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
  /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/sphere.h
  /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/vec3.h

@@ -3,6 +3,7 @@
 #include "sphere.h"
 #include "hitable_list.h"
 #include "camera.h"
+#include "material.h"
 using namespace std;
 
 vec3 random_in_unit_sphere() {
@@ -13,11 +14,43 @@ vec3 random_in_unit_sphere() {
     return p;
 }
 
-vec3 getColor(const ray &r, hitable *world) {
+vec3 reflect(const vec3& vector, const vec3& normal) {
+    return vector - 2 * dot(vector, normal) * normal;
+}
+
+class metal : public material {
+public:
+    metal(const vec3& a): albedo(a) {};
+    virtual bool scatter(const ray& r_in, const hit_record& rec, vec3& attenuation, ray& scattered) const {
+        vec3 reflected = reflect(unit_vector(r_in.direction()), rec.normal);
+        scattered = ray(rec.position, reflected);
+        attenuation = albedo;
+        return dot(scattered.direction(), rec.normal) > 0;
+    }
+    vec3 albedo;
+};
+
+class lambertian: public material {
+public:
+    lambertian(const vec3& a): albedo(a) {};
+    virtual bool scatter(const ray& r_in, const hit_record& rec, vec3& attenuation, ray& scattered) const {
+        vec3 target = rec.position + rec.normal + random_in_unit_sphere();
+        scattered = ray(rec.position, target - rec.position);
+        return true;
+    }
+    vec3 albedo;
+};
+
+vec3 getColor(const ray &r, hitable *world, int depth) {
     hit_record record;
-    if(world->hit(r, 0.001, MAXFLOAT, record)){
-        vec3 target = record.position + record.normal + random_in_unit_sphere();
-        return 0.5 * getColor(ray(record.position, target - record.position), world);
+    if(world->hit(r, 0.001, MAXFLOAT, record)) {
+        ray scattered;
+        vec3 attenuation;
+        if (depth < 20 && record.mat_ptr->scatter(r, record, attenuation, scattered)) {
+            return attenuation * getColor(scattered, world, depth + 1);
+        } else {
+            return vec3(0, 0, 0);
+        }
     }
     vec3 unit_direction = unit_vector(r.direction());
     float t = 0.5 * (unit_direction.y() + 1.0);
@@ -31,9 +64,11 @@ int main() {
     ofstream file;
     file.open("example.ppm");
     file << "P3\n" << nx << " " << ny << "\n255\n";
-    hitable *list[2];
-    list[0] = new sphere(vec3(0,0,-1), 0.5);
-    list[1] = new sphere(vec3(0, -100.5, -1), 100);
+    hitable *list[4];
+    list[0] = new sphere(vec3(0,0,-1), 0.5, new lambertian(vec3(0.8, 0.3, 0.3)));
+    list[1] = new sphere(vec3(0, -100.5, -1), 100, new lambertian(vec3(0.8, 0.8, 0.0)));
+    list[2] = new sphere(vec3(1, 0, -1), 0.5, new metal(vec3(0.8, 0.6, 0.2)));
+    list[3] = new sphere(vec3(-1, 0, -1), 0.5, new metal(vec3(0.8, 0.8, 0.8)));
     hitable *world = new hitable_list(list, 2);
     camera camera;
     for (int j = ny-1; j >= 0 ; j--) {
@@ -43,7 +78,7 @@ int main() {
                 float u = float(i + drand48()) / float(nx);
                 float v = float(j + drand48()) / float(ny);
                 ray camRay = camera.get_ray(u, v);
-                color += getColor(camRay, world);
+                color += getColor(camRay, world, 0);
             }
             color /= float(ns);
             color = vec3(sqrt(color[0]), sqrt(color[1]), sqrt(color[2]));
