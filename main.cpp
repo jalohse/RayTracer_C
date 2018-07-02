@@ -5,12 +5,21 @@
 #include "camera.h"
 using namespace std;
 
-vec3 getColor(const ray &ray, hitable *world) {
+vec3 random_in_unit_sphere() {
+    vec3 p;
+    do {
+        p = 2.0 * vec3(drand48(), drand48(), drand48()) - vec3(1,1,1);
+    } while (p.squared_length() >= 1.0);
+    return p;
+}
+
+vec3 getColor(const ray &r, hitable *world) {
     hit_record record;
-    if(world->hit(ray, 0.0, MAXFLOAT, record)){
-        return 0.5 * vec3(record.normal.x() + 1, record.normal.y() +1, record.normal.z() + 1);
+    if(world->hit(r, 0.001, MAXFLOAT, record)){
+        vec3 target = record.position + record.normal + random_in_unit_sphere();
+        return 0.5 * getColor(ray(record.position, target - record.position), world);
     }
-    vec3 unit_direction = unit_vector(ray.direction());
+    vec3 unit_direction = unit_vector(r.direction());
     float t = 0.5 * (unit_direction.y() + 1.0);
     return (1.0 - t) * vec3(1.0, 1.0, 1.0) + t * vec3(0.5, 0.7, 1.0);
 }
@@ -37,6 +46,7 @@ int main() {
                 color += getColor(camRay, world);
             }
             color /= float(ns);
+            color = vec3(sqrt(color[0]), sqrt(color[1]), sqrt(color[2]));
             int ir = int(255.99 * color[0]);
             int ig = int(255.99 * color[1]);
             int ib = int(255.99 * color[2]);
