@@ -36,6 +36,7 @@ public:
     virtual bool scatter(const ray& r_in, const hit_record& rec, vec3& attenuation, ray& scattered) const {
         vec3 target = rec.position + rec.normal + random_in_unit_sphere();
         scattered = ray(rec.position, target - rec.position);
+        attenuation = albedo;
         return true;
     }
     vec3 albedo;
@@ -46,7 +47,7 @@ vec3 getColor(const ray &r, hitable *world, int depth) {
     if(world->hit(r, 0.001, MAXFLOAT, record)) {
         ray scattered;
         vec3 attenuation;
-        if (depth < 20 && record.mat_ptr->scatter(r, record, attenuation, scattered)) {
+        if (depth < 50 && record.mat_ptr->scatter(r, record, attenuation, scattered)) {
             return attenuation * getColor(scattered, world, depth + 1);
         } else {
             return vec3(0, 0, 0);
@@ -69,7 +70,7 @@ int main() {
     list[1] = new sphere(vec3(0, -100.5, -1), 100, new lambertian(vec3(0.8, 0.8, 0.0)));
     list[2] = new sphere(vec3(1, 0, -1), 0.5, new metal(vec3(0.8, 0.6, 0.2)));
     list[3] = new sphere(vec3(-1, 0, -1), 0.5, new metal(vec3(0.8, 0.8, 0.8)));
-    hitable *world = new hitable_list(list, 2);
+    hitable *world = new hitable_list(list, 4);
     camera camera;
     for (int j = ny-1; j >= 0 ; j--) {
         for (int i = 0; i < nx; ++i) {
