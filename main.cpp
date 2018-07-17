@@ -20,14 +20,15 @@ vec3 reflect(const vec3& vector, const vec3& normal) {
 
 class metal : public material {
 public:
-    metal(const vec3& a): albedo(a) {};
+    metal(const vec3& a, float f): albedo(a) { if (f< 1) fuzz = f; else fuzz =1;};
     virtual bool scatter(const ray& r_in, const hit_record& rec, vec3& attenuation, ray& scattered) const {
         vec3 reflected = reflect(unit_vector(r_in.direction()), rec.normal);
-        scattered = ray(rec.position, reflected);
+        scattered = ray(rec.position, reflected + fuzz * random_in_unit_sphere());
         attenuation = albedo;
         return dot(scattered.direction(), rec.normal) > 0;
     }
     vec3 albedo;
+    float fuzz;
 };
 
 class lambertian: public material {
@@ -68,8 +69,8 @@ int main() {
     hitable *list[4];
     list[0] = new sphere(vec3(0,0,-1), 0.5, new lambertian(vec3(0.8, 0.3, 0.3)));
     list[1] = new sphere(vec3(0, -100.5, -1), 100, new lambertian(vec3(0.8, 0.8, 0.0)));
-    list[2] = new sphere(vec3(1, 0, -1), 0.5, new metal(vec3(0.8, 0.6, 0.2)));
-    list[3] = new sphere(vec3(-1, 0, -1), 0.5, new metal(vec3(0.8, 0.8, 0.8)));
+    list[2] = new sphere(vec3(1, 0, -1), 0.5, new metal(vec3(0.8, 0.6, 0.2), 1.0));
+    list[3] = new sphere(vec3(-1, 0, -1), 0.5, new metal(vec3(0.8, 0.8, 0.8), 0.3));
     hitable *world = new hitable_list(list, 4);
     camera camera;
     for (int j = ny-1; j >= 0 ; j--) {
