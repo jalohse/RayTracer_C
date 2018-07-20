@@ -23,6 +23,8 @@ iostream
 -
 fstream
 -
+thread
+-
 sphere.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/sphere.h
 hitable_list.h
