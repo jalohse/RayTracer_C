@@ -7,8 +7,8 @@
 #include "material.h"
 using namespace std;
 
-int nx = 200;
-int ny = 100;
+int nx = 600;
+int ny = 300;
 int ns = 100;
 
 class PixelIterator {
@@ -99,10 +99,10 @@ int main() {
     file.open("example.ppm");
     file << "P3\n" << nx << " " << ny << "\n255\n";
     hitable *world = random_scene();
-    vec3 look_from(15, 0, 0);
-    vec3 look_at(0, 0, -1);
-    float distance_to_focus = (look_from - look_at).length();
-    float aperature = 2.0;
+    vec3 look_from(13, 2, 3);
+    vec3 look_at(0, 0, 0);
+    float distance_to_focus = 10;
+    float aperature = 0.1;
     camera camera(look_from, look_at, vec3(0, 1, 0), 20, float(nx) / float(ny), aperature, distance_to_focus);
     for (int j = ny-1; j >= 0 ; j--) {
         for (int i = 0; i < nx; ++i) {
