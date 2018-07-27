@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/RenderImage.h
+iostream
+-
+lodepng.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/lodepng.h
+
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/camera.h
 ray.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
@@ -17,16 +23,6 @@ ray.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable_list.h
 hitable.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable.h
-
-/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/lodepng.cpp
-lodepng.h
-/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/lodepng.h
-limits.h
--
-stdio.h
--
-stdlib.h
--
 
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/lodepng.h
 string.h
@@ -49,6 +45,8 @@ fstream
 -
 thread
 -
+RenderImage.h
+/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/RenderImage.h
 sphere.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/sphere.h
 hitable_list.h
@@ -61,10 +59,6 @@ material.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/material.h
 hitable.h
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable.h
-
-/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.cpp
-ray.h
-/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
 
 /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/ray.h
 vec3.h

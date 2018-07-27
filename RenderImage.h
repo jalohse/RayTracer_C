@@ -5,7 +5,18 @@ using namespace std;
 #ifndef RAYTRACER_RENDERIMAGE_H
 #define RAYTRACER_RENDERIMAGE_H
 
-struct Color { float r, g, b; };
+class Color {
+public:
+    unsigned char r, g, b;
+    static unsigned char ClampInt(int v) { return v<0 ? 0 : (v>255 ? 255 : v); }
+    static unsigned char FloatToByte(float r) { return ClampInt(int(r*255+0.5f)); }
+    void SetColor(float x, float y, float z) {
+        r = FloatToByte(x);
+        g = FloatToByte(y);
+        b = FloatToByte(z);
+
+    }
+};
 
 class RenderImage {
 private:
@@ -32,7 +43,7 @@ public:
     bool SaveImage(const char *filename) const { return SavePNG(filename, &image[0].r, 3);}
 
 private:
-    bool SavePNG(const char *filename, float *data, int compCount) const {
+    bool SavePNG(const char *filename, unsigned char *data, int compCount) const {
         LodePNGColorType colorType;
         switch (compCount) {
             case 1: colorType = LCT_GREY; break;

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <thread>
+#include "RenderImage.h"
 #include "sphere.h"
 #include "hitable_list.h"
 #include "camera.h"
@@ -10,6 +11,9 @@ using namespace std;
 int nx = 600;
 int ny = 300;
 int ns = 100;
+RenderImage renderImage;
+int totalThreads = 0;
+int totalFinishedThreads = 0;
 
 class PixelIterator {
 public:
@@ -17,11 +21,11 @@ public:
     void Init() { ix = 0; };
     bool GetPixel(int &x, int &y) {
         int i = ix++;
-        if( i > nx * ny) {
+        if( i > renderImage.GetWidth() * renderImage.GetHeight()) {
             return false;
         }
-        y = i / nx;
-        x = i - y * nx;
+        y = i / renderImage.GetWidth();
+        x = i - y * renderImage.GetHeight();
         return true;
     };
 private:
@@ -75,30 +79,17 @@ hitable *random_scene() {
     return new hitable_list(list, i);
 }
 
+void StopRender() {
+    totalFinishedThreads += 1;
+    if(totalFinishedThreads == totalThreads) {
+        renderImage.SaveImage("raytracing.png");
+        cout << "Done Rendering!" << endl;
+    }
+}
+
 void RenderPixels() {
     int x, y;
-    while(pixel_iterator.GetPixel(x,y)) {
-
-    }
-}
-
-void BeginRender() {
-    int n = thread::hardware_concurrency();
-    if(n <= 0) {
-        n = 1;
-    }
-    pixel_iterator.Init();
-    for (int i = 0; i < n; ++i) {
-        thread(RenderPixels).detach();
-    }
-
-}
-
-int main() {
-    ofstream file;
-    file.open("example.ppm");
-    file << "P3\n" << nx << " " << ny << "\n255\n";
-//    hitable *world = random_scene();
+    //    hitable *world = random_scene();
     hitable *list[2];
     list[0] = new sphere(vec3(0,0,-1), 0.5,new lambertian(vec3(0.8, 0.3, 0.3)));
     list[1] = new sphere(vec3(0,-100.5,-1), 100,new lambertian(vec3(0.8, 0.8, 0)));
@@ -107,24 +98,75 @@ int main() {
     vec3 look_at(0, 0, 0);
     float distance_to_focus = 10;
     float aperature = 0.1;
-    camera camera(look_from, look_at, vec3(0, 1, 0), 20, float(nx) / float(ny), aperature, distance_to_focus);
-    for (int j = ny-1; j >= 0 ; j--) {
-        for (int i = 0; i < nx; ++i) {
-            vec3 color(0,0,0);
-            for(int s = 0; s < ns; s++) {
-                float u = float(i + drand48()) / float(nx);
-                float v = float(j + drand48()) / float(ny);
-                ray camRay = camera.get_ray(u, v);
-                color += getColor(camRay, world, 0);
-            }
-            color /= float(ns);
-            color = vec3(sqrt(color[0]), sqrt(color[1]), sqrt(color[2]));
-            int ir = int(255.99 * color[0]);
-            int ig = int(255.99 * color[1]);
-            int ib = int(255.99 * color[2]);
-            file << ir << " " << ig << " " << ib << "\n";
+    float aspectRatio = float(renderImage.GetWidth()) / float(renderImage.GetHeight());
+    camera camera(look_from, look_at, vec3(0, 1, 0), 20, aspectRatio, aperature, distance_to_focus);
+
+    while(pixel_iterator.GetPixel(x,y)) {
+        vec3 total = vec3(0,0,0);
+        for(int s = 0; s < ns; s++) {
+            float u = float(x + drand48()) / float(nx);
+            float v = float(y + drand48()) / float(ny);
+            ray camRay = camera.get_ray(u, v);
+            total += getColor(camRay, world, 0);
         }
+        total /= float(ns);
+        total = vec3(sqrt(total[0]), sqrt(total[1]), sqrt(total[2]));
+        int ir = int(255.99 * total[0]);
+        int ig = int(255.99 * total[1]);
+        int ib = int(255.99 * total[2]);
+        Color color;
+        color.SetColor(ir, ig,  ib);
+        int spot = y * renderImage.GetWidth() + x;
+        renderImage.GetPixels()[spot] = color;
     }
-    file.close();
-    return 0;
+    StopRender();
+}
+
+void BeginRender() {
+    int n = thread::hardware_concurrency();
+    if(n <= 0) {
+        n = 1;
+    }
+    totalThreads = n;
+    pixel_iterator.Init();
+    for (int i = 0; i < n; ++i) {
+        thread(RenderPixels).detach();
+    }
+}
+
+int main() {
+    renderImage.Init(nx, ny);
+//    ofstream file;
+//    file.open("example.ppm");
+//    file << "P3\n" << nx << " " << ny << "\n255\n";
+////    hitable *world = random_scene();
+//    hitable *list[2];
+//    list[0] = new sphere(vec3(0,0,-1), 0.5,new lambertian(vec3(0.8, 0.3, 0.3)));
+//    list[1] = new sphere(vec3(0,-100.5,-1), 100,new lambertian(vec3(0.8, 0.8, 0)));
+//    hitable *world = new hitable_list(list, 2);
+//    vec3 look_from(13, 2, 3);
+//    vec3 look_at(0, 0, 0);
+//    float distance_to_focus = 10;
+//    float aperature = 0.1;
+//    camera camera(look_from, look_at, vec3(0, 1, 0), 20, float(nx) / float(ny), aperature, distance_to_focus);
+//    for (int j = ny-1; j >= 0 ; j--) {
+//        for (int i = 0; i < nx; ++i) {
+//            vec3 color(0,0,0);
+//            for(int s = 0; s < ns; s++) {
+//                float u = float(i + drand48()) / float(nx);
+//                float v = float(j + drand48()) / float(ny);
+//                ray camRay = camera.get_ray(u, v);
+//                color += getColor(camRay, world, 0);
+//            }
+//            color /= float(ns);
+//            color = vec3(sqrt(color[0]), sqrt(color[1]), sqrt(color[2]));
+//            int ir = int(255.99 * color[0]);
+//            int ig = int(255.99 * color[1]);
+//            int ib = int(255.99 * color[2]);
+//            file << ir << " " << ig << " " << ib << "\n";
+//        }
+//    }
+//    file.close();
+    thread render( BeginRender);
+    render.join();
 }
