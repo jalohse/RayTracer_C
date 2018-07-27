@@ -123,6 +123,33 @@ raytracer/fast:
 	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/build
 .PHONY : raytracer/fast
 
+lodepng.o: lodepng.cpp.o
+
+.PHONY : lodepng.o
+
+# target to build an object file
+lodepng.cpp.o:
+	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/lodepng.cpp.o
+.PHONY : lodepng.cpp.o
+
+lodepng.i: lodepng.cpp.i
+
+.PHONY : lodepng.i
+
+# target to preprocess a source file
+lodepng.cpp.i:
+	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/lodepng.cpp.i
+.PHONY : lodepng.cpp.i
+
+lodepng.s: lodepng.cpp.s
+
+.PHONY : lodepng.s
+
+# target to generate assembly for a file
+lodepng.cpp.s:
+	$(MAKE) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/lodepng.cpp.s
+.PHONY : lodepng.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -186,6 +213,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... raytracer"
+	@echo "... lodepng.o"
+	@echo "... lodepng.i"
+	@echo "... lodepng.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

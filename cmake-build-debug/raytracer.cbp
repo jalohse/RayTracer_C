@@ -82,6 +82,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/RenderImage.h">
+			<Option target="raytracer"/>
+		</Unit>
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/camera.h">
 			<Option target="raytracer"/>
 		</Unit>
@@ -89,6 +92,12 @@
 			<Option target="raytracer"/>
 		</Unit>
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/hitable_list.h">
+			<Option target="raytracer"/>
+		</Unit>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/lodepng.cpp">
+			<Option target="raytracer"/>
+		</Unit>
+		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/lodepng.h">
 			<Option target="raytracer"/>
 		</Unit>
 		<Unit filename="/Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer/main.cpp">

@@ -98,7 +98,11 @@ int main() {
     ofstream file;
     file.open("example.ppm");
     file << "P3\n" << nx << " " << ny << "\n255\n";
-    hitable *world = random_scene();
+//    hitable *world = random_scene();
+    hitable *list[2];
+    list[0] = new sphere(vec3(0,0,-1), 0.5,new lambertian(vec3(0.8, 0.3, 0.3)));
+    list[1] = new sphere(vec3(0,-100.5,-1), 100,new lambertian(vec3(0.8, 0.8, 0)));
+    hitable *world = new hitable_list(list, 2);
     vec3 look_from(13, 2, 3);
     vec3 look_at(0, 0, 0);
     float distance_to_focus = 10;
