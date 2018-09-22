@@ -25,7 +25,7 @@ public:
             return false;
         }
         y = i / renderImage.GetWidth();
-        x = i - y * renderImage.GetHeight();
+        x = i - y * renderImage.GetWidth();
         return true;
     };
 private:
@@ -81,6 +81,7 @@ hitable *random_scene() {
 
 void StopRender() {
     totalFinishedThreads += 1;
+    cout << "Thread finished" << endl;
     if(totalFinishedThreads == totalThreads) {
         renderImage.SaveImage("raytracing.png");
         cout << "Done Rendering!" << endl;
@@ -89,7 +90,7 @@ void StopRender() {
 
 void RenderPixels() {
     int x, y;
-    //    hitable *world = random_scene();
+//    hitable *world = random_scene();
     hitable *list[2];
     list[0] = new sphere(vec3(0,0,-1), 0.5,new lambertian(vec3(0.8, 0.3, 0.3)));
     list[1] = new sphere(vec3(0,-100.5,-1), 100,new lambertian(vec3(0.8, 0.8, 0)));
@@ -123,15 +124,17 @@ void RenderPixels() {
 }
 
 void BeginRender() {
-    int n = thread::hardware_concurrency();
+    int n = thread::hardware_concurrency() - 1;
     if(n <= 0) {
         n = 1;
     }
     totalThreads = n;
     pixel_iterator.Init();
-    for (int i = 0; i < n; ++i) {
-        thread(RenderPixels).detach();
+    vector<thread> threadList;
+    for(int i = 0; i < n; i++) {
+        threadList.push_back(thread(RenderPixels));
     }
+    for_each(threadList.begin(), threadList.end(), mem_fn(&thread::join));
 }
 
 int main() {

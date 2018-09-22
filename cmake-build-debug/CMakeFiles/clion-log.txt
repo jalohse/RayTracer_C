@@ -1,4 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer
+/private/var/folders/b5/h4rsl8k9747gqvvyb9pl5zrw0000gn/T/AppTranslocation/EE3DFBAA-4D03-466B-8861-252F9BAC450D/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/jessicalohse/Desktop/Jessica/Programming/graphics/raytracer
 -- The C compiler identification is AppleClang 9.1.0.9020039
 -- The CXX compiler identification is AppleClang 9.1.0.9020039
 -- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
