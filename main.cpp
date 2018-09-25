@@ -81,7 +81,6 @@ hitable *random_scene() {
 
 void StopRender() {
     totalFinishedThreads += 1;
-    cout << "Thread finished" << endl;
     if(totalFinishedThreads == totalThreads) {
         renderImage.SaveImage("raytracing.png");
         cout << "Done Rendering!" << endl;
@@ -111,13 +110,12 @@ void RenderPixels() {
             total += getColor(camRay, world, 0);
         }
         total /= float(ns);
-        total = vec3(sqrt(total[0]), sqrt(total[1]), sqrt(total[2]));
-        int ir = int(255.99 * total[0]);
-        int ig = int(255.99 * total[1]);
-        int ib = int(255.99 * total[2]);
         Color color;
-        color.SetColor(ir, ig,  ib);
-        int spot = y * renderImage.GetWidth() + x;
+        color.SetColor(sqrt(total[0]), sqrt(total[1]),  sqrt(total[2]));
+        int spot = (renderImage.GetHeight() - y) *renderImage.GetWidth() + x;
+        if(spot < renderImage.GetHeight()){
+            cout << "top row" << endl;
+        }
         renderImage.GetPixels()[spot] = color;
     }
     StopRender();
