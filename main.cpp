@@ -123,8 +123,10 @@ void RenderPixels() {
 
 void BeginRender() {
     int n = thread::hardware_concurrency() - 1;
-    if(n <= 0) {
+    if(n <= 1) {
         n = 1;
+    } else {
+        n = n - 1;
     }
     totalThreads = n;
     pixel_iterator.Init();
