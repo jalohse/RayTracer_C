@@ -10,7 +10,7 @@ using namespace std;
 
 int nx = 600;
 int ny = 300;
-int ns = 100;
+int ns = 1000;
 RenderImage renderImage;
 int totalThreads = 0;
 int totalFinishedThreads = 0;
@@ -51,7 +51,7 @@ vec3 getColor(const ray &r, hitable *world, int depth) {
 }
 
 hitable *random_scene() {
-    int n = 500;
+    int n = 5000;
     hitable **list = new hitable*[n+1];
     list[0] = new sphere(vec3(0, -1000, 0), 1000, new lambertian(vec3(0.5, 0.5, 0.5)));
     int i = 1;
@@ -61,8 +61,8 @@ hitable *random_scene() {
             vec3 center(a + 0.9 * drand48(), 0.2, b + 0.9 * drand48());
             if((center - vec3(4, 0.2, 0)).length() > 0.9) {
                 if(choose_mat < 0.8) { //diffuse material
-                    list[i++] = new sphere(center, 0.2, new lambertian(
-                            vec3(drand48() * drand48(), drand48() * drand48(), drand48() * drand48())));
+                    list[i++] = new moving_sphere(center, center + vec3(0, 0.5 * drand48(), 0), 0.0, 1.0, 0.2,
+                            new lambertian(vec3(drand48() * drand48(), drand48() * drand48(), drand48() * drand48())));
                 } else if (choose_mat < 0.95) { // metal material
                     list[i++] = new sphere(center, 0.2,
                                            new metal(vec3(0.5 * (1 + drand48()), 0.5 * (1 + drand48()),
@@ -79,6 +79,14 @@ hitable *random_scene() {
     return new hitable_list(list, i);
 }
 
+hitable *single_sphere_scene() {
+    hitable **list = new hitable*[2];
+    vec3 center = vec3(0,0,-1);
+    list[0] = new moving_sphere(center, center + vec3(0, 1, 0), 0.0, 1.0, 0.5, new lambertian(vec3(0.8, 0.3, 0.3)));
+    list[1] = new sphere(vec3(0,-100.5,-1), 100,new lambertian(vec3(0.8, 0.8, 0)));
+    return new hitable_list(list, 2);
+}
+
 void StopRender() {
     totalFinishedThreads += 1;
     if(totalFinishedThreads == totalThreads) {
@@ -87,19 +95,8 @@ void StopRender() {
     }
 }
 
-void RenderPixels() {
+void RenderPixels(hitable *world, camera camera) {
     int x, y;
-//    hitable *world = random_scene();
-    hitable *list[2];
-    list[0] = new sphere(vec3(0,0,-1), 0.5,new lambertian(vec3(0.8, 0.3, 0.3)));
-    list[1] = new sphere(vec3(0,-100.5,-1), 100,new lambertian(vec3(0.8, 0.8, 0)));
-    hitable *world = new hitable_list(list, 2);
-    vec3 look_from(13, 2, 3);
-    vec3 look_at(0, 0, 0);
-    float distance_to_focus = 10;
-    float aperature = 0.1;
-    float aspectRatio = float(renderImage.GetWidth()) / float(renderImage.GetHeight());
-    camera camera(look_from, look_at, vec3(0, 1, 0), 20, aspectRatio, aperature, distance_to_focus);
 
     while(pixel_iterator.GetPixel(x,y)) {
         vec3 total = vec3(0,0,0);
@@ -121,7 +118,7 @@ void RenderPixels() {
     StopRender();
 }
 
-void BeginRender() {
+void setupThreads(hitable *world, camera camera){
     int n = thread::hardware_concurrency() - 1;
     if(n <= 1) {
         n = 1;
@@ -132,44 +129,25 @@ void BeginRender() {
     pixel_iterator.Init();
     vector<thread> threadList;
     for(int i = 0; i < n; i++) {
-        threadList.push_back(thread(RenderPixels));
+        threadList.push_back(thread(RenderPixels, world, camera));
     }
     for_each(threadList.begin(), threadList.end(), mem_fn(&thread::join));
 }
 
+void BeginRender() {
+    hitable *world = random_scene();
+    vec3 look_from(13, 2, 3);
+    vec3 look_at(0, 0, 0);
+    float distance_to_focus = 10;
+    float aperature = 0.0;
+    float aspectRatio = float(renderImage.GetWidth()) / float(renderImage.GetHeight());
+    camera camera(look_from, look_at, vec3(0, 1, 0), 20, aspectRatio, aperature, distance_to_focus, 0.0, 1.0);
+
+    setupThreads(world, camera);
+}
+
 int main() {
     renderImage.Init(nx, ny);
-//    ofstream file;
-//    file.open("example.ppm");
-//    file << "P3\n" << nx << " " << ny << "\n255\n";
-////    hitable *world = random_scene();
-//    hitable *list[2];
-//    list[0] = new sphere(vec3(0,0,-1), 0.5,new lambertian(vec3(0.8, 0.3, 0.3)));
-//    list[1] = new sphere(vec3(0,-100.5,-1), 100,new lambertian(vec3(0.8, 0.8, 0)));
-//    hitable *world = new hitable_list(list, 2);
-//    vec3 look_from(13, 2, 3);
-//    vec3 look_at(0, 0, 0);
-//    float distance_to_focus = 10;
-//    float aperature = 0.1;
-//    camera camera(look_from, look_at, vec3(0, 1, 0), 20, float(nx) / float(ny), aperature, distance_to_focus);
-//    for (int j = ny-1; j >= 0 ; j--) {
-//        for (int i = 0; i < nx; ++i) {
-//            vec3 color(0,0,0);
-//            for(int s = 0; s < ns; s++) {
-//                float u = float(i + drand48()) / float(nx);
-//                float v = float(j + drand48()) / float(ny);
-//                ray camRay = camera.get_ray(u, v);
-//                color += getColor(camRay, world, 0);
-//            }
-//            color /= float(ns);
-//            color = vec3(sqrt(color[0]), sqrt(color[1]), sqrt(color[2]));
-//            int ir = int(255.99 * color[0]);
-//            int ig = int(255.99 * color[1]);
-//            int ib = int(255.99 * color[2]);
-//            file << ir << " " << ig << " " << ib << "\n";
-//        }
-//    }
-//    file.close();
     thread render( BeginRender);
     render.join();
 }
